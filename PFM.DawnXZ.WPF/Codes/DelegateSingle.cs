@@ -1,39 +1,25 @@
-﻿using System;
+using System;
 using System.Windows;
-
 namespace PFM.DawnXZ.WPF.Codes
 {
-    /// <summary>
-    /// General commissioned a single parameter
-    /// </summary>
+    //General commissioned a single parameter
     public class DelegateSingle
     {
         #region Delegate & Event
-        /// <summary>
-        /// Declare a delegate
-        /// </summary>
+        //Declare a delegate
         /// <param name="sender">The delegate object</param>
         /// <param name="e">The delegate event</param>
         public delegate void UpdateInfoEventHandler(object sender, UpdateInfoEventArgs e);
-        /// <summary>
-        /// Declare a delegate event
-        /// </summary>
+        //Declare a delegate event
         private event UpdateInfoEventHandler UpdateInfo;
         #endregion Delegate & Event
-
         #region Delegate event class
-        /// <summary>
-        /// Delegate event class
-        /// </summary>
+        //Delegate event class
         public class UpdateInfoEventArgs : EventArgs
         {
-            /// <summary>
-            /// To update the information
-            /// </summary>
+            //To update the information
             public readonly string _strInfo;
-            /// <summary>
-            /// Constructed function
-            /// </summary>            
+            //Constructed function       
             /// <param name="strInfo">To update the information</param>
             public UpdateInfoEventArgs(string strInfo)
             {
@@ -41,45 +27,33 @@ namespace PFM.DawnXZ.WPF.Codes
             }
         }
         #endregion Delegate event class
-
         #region Register & UnRegister
-        /// <summary>
-        /// To register more than one method for an event
-        /// </summary>
+        //To register more than one method for an event
         /// <param name="method">Method name</param>
         public void Register(UpdateInfoEventHandler method)
         {
             UpdateInfo += method;
         }
-        /// <summary>
-        /// Registered with the event a unique method
-        /// </summary>
+        // Registered with the event a unique method
         /// <param name="method">Method name</param>
         public void RegisterOnly(UpdateInfoEventHandler method)
         {
             UpdateInfo = method;
         }
-        /// <summary>
-        /// Registered with the event against method
-        /// </summary>
+        //Registered with the event against method
         /// <param name="method">Method name</param>
         public void UnRegister(UpdateInfoEventHandler method)
         {
             UpdateInfo -= method;
         }
-        /// <summary>
-        /// Registered with the event against method
-        /// </summary>
+        //Registered with the event against method
         public void UnRegister()
         {
             UpdateInfo = null;
         }
         #endregion Register & UnRegister
-
         #region Virtual
-        /// <summary>
-        /// Can be overridden execute method
-        /// </summary>
+        // Can be overridden execute method
         /// <param name="wid">System.Windows.Window</param>
         /// <param name="e">The delegate event</param>
         protected virtual void OnUpdateInfo(Window wid, UpdateInfoEventArgs e)
@@ -87,11 +61,8 @@ namespace PFM.DawnXZ.WPF.Codes
             if (UpdateInfo != null && wid != null) wid.Dispatcher.Invoke(UpdateInfo, this, e);
         }
         #endregion Virtual
-
         #region Member method
-        /// <summary>
-        /// Executes a delegate method
-        /// </summary>
+        //Executes a delegate method
         /// <param name="wid">System.Windows.Window</param>
         /// <param name="strInfo">To update the information</param>
         public void Executes(Window wid, string strInfo)
