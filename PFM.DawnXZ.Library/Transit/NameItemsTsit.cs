@@ -1,97 +1,98 @@
-﻿using System;
-using System.Collections;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PFM.DawnXZ.Library.Transit
 {
-    /// <summary>
-    /// 模块名称枚举
-    /// </summary>
+    //模块名称枚举
     public enum NameItems
     {
-        /// <summary>
-        /// 主程序名称
-        /// </summary>
+        //主程序名称
         Main,
-        /// <summary>
-        /// 收支明细
-        /// </summary>
+        //收支明细
         IaeDetailed,
-        /// <summary>
-        /// 收支项目
-        /// </summary>
+        //收支项目
         IaeItems,
-        /// <summary>
-        /// 收支类别
-        /// </summary>
+        //收支类别
         IaeCategory,
-        /// <summary>
-        /// 账务账目
-        /// </summary>
+        //账务账目
         Accounts,
-        /// <summary>
-        /// 账务成员
-        /// </summary>
+        //账务成员
         Member,
-        /// <summary>
-        /// 账务报表
-        /// </summary>
+        //账务报表
         Report,
-        /// <summary>
-        /// 账务字典
-        /// </summary>
+        //账务字典
         Dictionary,
-        /// <summary>
-        /// 日志信息
-        /// </summary>
+        //日志信息
         Logs,
-        /// <summary>
-        /// 错误信息
-        /// </summary>
+        //错误信息
         Error,
-        /// <summary>
-        /// 关于系统
-        /// </summary>
+        //关于系统
         About,
-        /// <summary>
-        /// 系统设置
-        /// </summary>
+        //系统设置
         System
     }
-    /// <summary>
-    /// 模块名称
-    /// </summary>
+    //模块名称管理类
     public class NameItemsTsit
     {
-        /// <summary>
-        /// 模块名称列表项
-        /// </summary>
-        private string[] arrayNames = new string[] {
-            "个人账务管理系统[生财版] —— 我的好帮手！"
-            ,"个人账务管理系统[生财版] —— 收支明细管理"
-            ,"个人账务管理系统[生财版] —— 收支项目管理"
-            ,"个人账务管理系统[生财版] —— 收支类别管理"
-            ,"个人账务管理系统[生财版] —— 账务账目管理"
-            ,"个人账务管理系统[生财版] —— 账务成员管理"
-            ,"个人账务管理系统[生财版] —— 账务报表管理"
-            ,"个人账务管理系统[生财版] —— 账务字典管理"
-            ,"个人账务管理系统[生财版] —— 日志信息管理"
-            ,"个人账务管理系统[生财版] —— 错误信息管理"
-            ,"个人账务管理系统[生财版] —— 关于系统"
-            ,"个人账务管理系统[生财版] —— 系统设置"
-        };
-        /// <summary>
-        /// 模块名称
-        /// </summary>
+        private readonly Dictionary<NameItems, string> _moduleTitles;
+        //初始化模块名称
+        public NameItemsTsit()
+        {
+            _moduleTitles = new Dictionary<NameItems, string>
+            {
+                [NameItems.Main] = "个人账务管理系统—— 我的好帮手！",
+                [NameItems.IaeDetailed] = "个人账务管理系统—— 收支明细管理",
+                [NameItems.IaeItems] = "个人账务管理系统—— 收支项目管理",
+                [NameItems.IaeCategory] = "个人账务管理系统—— 收支类别管理",
+                [NameItems.Accounts] = "个人账务管理系统—— 账务账目管理",
+                [NameItems.Member] = "个人账务管理系统—— 账务成员管理",
+                [NameItems.Report] = "个人账务管理系统—— 账务报表管理",
+                [NameItems.Dictionary] = "个人账务管理系统—— 账务字典管理",
+                [NameItems.Logs] = "个人账务管理系统—— 日志信息管理",
+                [NameItems.Error] = "个人账务管理系统—— 错误信息管理",
+                [NameItems.About] = "个人账务管理系统—— 关于系统",
+                [NameItems.System] = "个人账务管理系统—— 系统设置"
+            };
+        }
+        //通过枚举值获取模块名称
+        /// <param name="module">模块枚举</param>
+        /// <returns>模块名称</returns>
+        public string this[NameItems module]
+        {
+            get
+            {
+                if (_moduleTitles.TryGetValue(module, out string title))
+                    return title;
+                throw new ArgumentException($"未找到模块 {module} 对应的名称", nameof(module));
+            }
+        }
+        //通过整数索引获取模块名称
         /// <param name="index">索引</param>
-        /// <returns></returns>
+        /// <returns>模块名称</returns>
         public string this[int index]
         {
-            get { return arrayNames[index]; }
+            get
+            {
+                if (Enum.IsDefined(typeof(NameItems), index))
+                    return this[(NameItems)index];
+                throw new ArgumentOutOfRangeException(nameof(index), $"索引 {index} 超出有效范围");
+            }
         }
-        /// <summary>
-        /// 模块名称
-        /// </summary>
-        public NameItemsTsit()
-        { }        
+        //获取所有模块名称
+        /// <returns>模块名称列表</returns>
+        public IReadOnlyCollection<string> GetAllTitles()
+        {
+            return _moduleTitles.Values.ToList().AsReadOnly();
+        }
+        //获取模块数量
+        public int Count => _moduleTitles.Count;
+        //检查模块是否存在
+        /// <param name="module">模块枚举</param>
+        /// <returns>是否存在</returns>
+        public bool ContainsModule(NameItems module)
+        {
+            return _moduleTitles.ContainsKey(module);
+        }
     }
 }
