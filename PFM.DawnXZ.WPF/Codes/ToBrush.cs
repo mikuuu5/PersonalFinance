@@ -1,19 +1,12 @@
-﻿using System;
+using System;
 using System.Windows.Media;
-
 namespace PFM.DawnXZ.WPF.Codes
 {
-    /// <summary>
     /// 将字符串颜色值转换成WPF识别颜色值
-    /// </summary>
     public class ToBrush
     {
-        /// <summary>
         /// 将字符串颜色值转换成WPF识别颜色值
-        /// <remarks>
-        /// Brush
-        /// </remarks>
-        /// </summary>
+        /// <remarks> Brush</remarks>
         /// <param name="color">字符串颜色值</param>
         /// <returns>WPF识别颜色值</returns>
         public static Brush StrToBrush(string color)
