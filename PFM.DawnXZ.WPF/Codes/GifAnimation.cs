@@ -1,93 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.IO;
 using System.Windows.Media.Imaging;
-
 namespace PFM.DawnXZ.WPF.Codes
 {
     class GifAnimation : Viewbox
     {
         private class GifFrame : Image
         {
-            /// <summary>
-            /// 
-            /// </summary>
             public int delayTime;
-            /// <summary>
-            /// 
-            /// </summary>
             public int disposalMethod;
-            /// <summary>
-            /// 
-            /// </summary>
             public int left;
-            /// <summary>
-            /// 
-            /// </summary>
             public int top;
-            /// <summary>
-            /// 
-            /// </summary>
             public int width;
-            /// <summary>
-            /// 
-            /// </summary>
             public int height;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         private Canvas canvas = null;
-        /// <summary>
-        /// 
-        /// </summary>
         private List<GifFrame> frameList = null;
-        /// <summary>
-        /// 
-        /// </summary>
         private int frameCounter = 0;
-        /// <summary>
-        /// 
-        /// </summary>
         private int numberOfFrames = 0;
-        /// <summary>
-        /// 
-        /// </summary>
         private int numberOfLoops = -1;
-        /// <summary>
-        /// 
-        /// </summary>
         private int currentLoop = 0;
-        /// <summary>
-        /// 
-        /// </summary>
         private int logicalWidth = 0;
-        /// <summary>
-        /// 
-        /// </summary>
         private int logicalHeight = 0;
-        /// <summary>
-        /// 
-        /// </summary>
         private DispatcherTimer frameTimer = null;
-        /// <summary>
-        /// 
-        /// </summary>
         private GifFrame currentParseGifFrame;
-        /// <summary>
-        /// 
-        /// </summary>
         public GifAnimation()
         {
             canvas = new Canvas();
             this.Child = canvas;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         private void Reset()
         {
             if (frameList != null)
@@ -107,11 +52,7 @@ namespace PFM.DawnXZ.WPF.Codes
                 frameTimer = null;
             }
         }
-
         #region PARSE
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         private void ParseGif(byte[] gifData)
         {
@@ -119,9 +60,6 @@ namespace PFM.DawnXZ.WPF.Codes
             currentParseGifFrame = new GifFrame();
             ParseGifDataStream(gifData, 0);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -149,9 +87,6 @@ namespace PFM.DawnXZ.WPF.Codes
                     throw new Exception("GIF format incorrect: missing graphic block or special-purpose block. ");
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -160,24 +95,17 @@ namespace PFM.DawnXZ.WPF.Codes
             int returnOffset = offset;
             int length = gifData[offset + 2];
             returnOffset = offset + length + 2 + 1;
-
             byte packedField = gifData[offset + 3];
             currentParseGifFrame.disposalMethod = (packedField & 0x1C) >> 2;
-
             int delay = BitConverter.ToUInt16(gifData, offset + 4);
             currentParseGifFrame.delayTime = delay;
             while (gifData[returnOffset] != 0x00)
             {
                 returnOffset = returnOffset + gifData[returnOffset] + 1;
             }
-
             returnOffset++;
-
             return returnOffset;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -185,10 +113,8 @@ namespace PFM.DawnXZ.WPF.Codes
         {
             logicalWidth = BitConverter.ToUInt16(gifData, offset);
             logicalHeight = BitConverter.ToUInt16(gifData, offset + 2);
-
             byte packedField = gifData[offset + 4];
             bool hasGlobalColorTable = (int)(packedField & 0x80) > 0 ? true : false;
-
             int currentIndex = offset + 7;
             if (hasGlobalColorTable)
             {
@@ -198,9 +124,6 @@ namespace PFM.DawnXZ.WPF.Codes
             }
             return currentIndex;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -220,7 +143,6 @@ namespace PFM.DawnXZ.WPF.Codes
             }
             byte packedField = gifData[offset + 9];
             bool hasLocalColorTable = (int)(packedField & 0x80) > 0 ? true : false;
-
             int currentIndex = offset + 9;
             if (hasLocalColorTable)
             {
@@ -229,9 +151,7 @@ namespace PFM.DawnXZ.WPF.Codes
                 currentIndex = currentIndex + colorTableLength;
             }
             currentIndex++;
-
             currentIndex++;
-
             while (gifData[currentIndex] != 0x00)
             {
                 int length = gifData[currentIndex];
@@ -241,9 +161,6 @@ namespace PFM.DawnXZ.WPF.Codes
             currentIndex = currentIndex + 1;
             return currentIndex;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -268,14 +185,9 @@ namespace PFM.DawnXZ.WPF.Codes
             {
                 returnOffset = returnOffset + gifData[returnOffset] + 1;
             }
-
             returnOffset++;
-
             return returnOffset;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
@@ -288,9 +200,6 @@ namespace PFM.DawnXZ.WPF.Codes
             }
             return 6;
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="gifData"></param>
         /// <param name="offset"></param>
         private void ParseGifDataStream(byte[] gifData, int offset)
@@ -303,10 +212,6 @@ namespace PFM.DawnXZ.WPF.Codes
             }
         }
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="memoryStream"></param>
         public void CreateGifAnimation(MemoryStream memoryStream)
         {
@@ -350,16 +255,10 @@ namespace PFM.DawnXZ.WPF.Codes
                 frameTimer.Start();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public void NextFrame()
         {
             NextFrame(null, null);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void NextFrame(object sender, EventArgs e)
@@ -375,7 +274,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 frameList[frameCounter].Visibility = Visibility.Hidden;
             }
             frameCounter++;
-
             if (frameCounter < numberOfFrames)
             {
                 frameList[frameCounter].Visibility = Visibility.Visible;
