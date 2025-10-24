@@ -1,8 +1,11 @@
-﻿// ===================================================================
+// ===================================================================
 // 工厂（PFM.DawnXZ.Library.DBFactory）项目
-//====================================================================
+// ===================================================================
 // 文件名称：DALFactory.cs
 // 项目名称：个人财务管理系统
+// 修改日期：
+// 修改人员：
+// 修改内容：
 // ===================================================================
 using System;
 using System.Reflection;
@@ -10,148 +13,102 @@ using PFM.DawnXZ.Library.IDAL;
 
 namespace PFM.DawnXZ.Library.DBFactory
 {
-    /// <summary>
-    /// 数据层工厂
-    /// </summary>
-    public class DALFactory
-    {
-        /// <summary>
-        /// 通过反射机制，实例化接口对象
-        /// </summary>
-        //private static readonly string _path = System.Configuration.ConfigurationManager.AppSettings["pfmDAL"];
-        private static readonly string _path = "PFM.DawnXZ.Library";
+	/// <summary>
+	/// 数据层工厂
+	/// </summary>
+	public static class DALFactory  // 改为静态类
+	{
+		private static readonly string _assemblyPath = "PFM.DawnXZ.Library";
 
-        /// <summary>
-        /// 通过反射机制，实例化接口对象
-        /// </summary>
-        /// <param name="CacheKey">接口对象名称(键)</param>
-        ///<returns>接口对象</returns>
-        private static object GetInstance(string CacheKey)
-        {
-            object objType = DataCache.GetCache(CacheKey);
-            if (objType == null)
-            {
-                try
-                {
-                    objType = Assembly.Load(DALFactory._path).CreateInstance(CacheKey);
-                    DataCache.SetCache(CacheKey, objType);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            return objType;
-        }
+		// 添加配置常量，便于维护
+		private const string SQL_SERVER_DAL_NAMESPACE = ".SqlServerDAL.";
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmAccounts接口对象
-        /// </summary>
-        ///<returns>PfmAccounts接口对象</returns>
-        public static IPfmAccountsDAL PfmAccountsDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmAccountsDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmAccountsDAL)objType;
-        }
+		// 缓存键前缀，避免键冲突
+		private const string CACHE_KEY_PREFIX = "DAL_";
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmDictionary接口对象
-        /// </summary>
-        ///<returns>PfmDictionary接口对象</returns>
-        public static IPfmDictionaryDAL PfmDictionaryDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmDictionaryDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmDictionaryDAL)objType;
-        }
+		/// <summary>
+		/// 通过反射机制，实例化接口对象
+		/// </summary>
+		/// <param name="cacheKey">缓存键</param>
+		/// <param name="typeName">完整类型名称</param>
+		/// <returns>接口对象</returns>
+		private static object GetInstance(string cacheKey, string typeName)
+		{
+			// 尝试从缓存获取
+			object instance = DataCache.GetCache(cacheKey);
+			if (instance != null)
+			{
+				return instance;
+			}
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmError接口对象
-        /// </summary>
-        ///<returns>PfmError接口对象</returns>
-        public static IPfmErrorDAL PfmErrorDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmErrorDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmErrorDAL)objType;
-        }
+			try
+			{
+				// 创建实例
+				instance = Assembly.Load(_assemblyPath).CreateInstance(typeName);
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmIaeCategory接口对象
-        /// </summary>
-        ///<returns>PfmIaeCategory接口对象</returns>
-        public static IPfmIaeCategoryDAL PfmIaeCategoryDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmIaeCategoryDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmIaeCategoryDAL)objType;
-        }
+				if (instance != null)
+				{
+					// 设置缓存，可考虑添加缓存过期时间
+					DataCache.SetCache(cacheKey, instance);
+				}
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmIaeDetailed接口对象
-        /// </summary>
-        ///<returns>PfmIaeDetailed接口对象</returns>
-        public static IPfmIaeDetailedDAL PfmIaeDetailedDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmIaeDetailedDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmIaeDetailedDAL)objType;
-        }
+				return instance;
+			}
+			catch (Exception ex)
+			{
+				// 记录详细异常信息
+				// 在实际项目中应该使用日志框架记录异常
+				throw new InvalidOperationException($"创建类型 {typeName} 的实例失败", ex);
+			}
+		}
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmIaeItems接口对象
-        /// </summary>
-        ///<returns>PfmIaeItems接口对象</returns>
-        public static IPfmIaeItemsDAL PfmIaeItemsDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmIaeItemsDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmIaeItemsDAL)objType;
-        }
+		/// <summary>
+		/// 通用的DAL实例创建方法
+		/// </summary>
+		/// <typeparam name="TInterface">接口类型</typeparam>
+		/// <param name="dalClassName">DAL类名</param>
+		/// <returns>接口实例</returns>
+		private static TInterface CreateDALInstance<TInterface>(string dalClassName)
+			where TInterface : class
+		{
+			string typeName = _assemblyPath + SQL_SERVER_DAL_NAMESPACE + dalClassName;
+			string cacheKey = CACHE_KEY_PREFIX + dalClassName;
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmLogs接口对象
-        /// </summary>
-        ///<returns>PfmLogs接口对象</returns>
-        public static IPfmLogsDAL PfmLogsDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmLogsDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmLogsDAL)objType;
-        }
+			object instance = GetInstance(cacheKey, typeName);
+			return instance as TInterface ??
+				   throw new InvalidCastException($"类型 {typeName} 无法转换为 {typeof(TInterface).Name}");
+		}
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmMember接口对象
-        /// </summary>
-        ///<returns>PfmMember接口对象</returns>
-        public static IPfmMemberDAL PfmMemberDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmMemberDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmMemberDAL)objType;
-        }
+		// 以下是具体的DAL实例创建方法，使用泛型方法减少重复代码
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmReport接口对象
-        /// </summary>
-        ///<returns>PfmReport接口对象</returns>
-        public static IPfmReportDAL PfmReportDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmReportDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmReportDAL)objType;
-        }
+		public static IPfmAccountsDAL PfmAccountsDALInstance()
+			=> CreateDALInstance<IPfmAccountsDAL>("PfmAccountsDAL");
 
-        /// <summary>
-        /// 通过反射机制，实例化PfmReportRecord接口对象
-        /// </summary>
-        ///<returns>PfmReportRecord接口对象</returns>
-        public static IPfmReportRecordDAL PfmReportRecordDALInstance()
-        {
-            string CacheKey = DALFactory._path + ".SqlServerDAL.PfmReportRecordDAL";
-            object objType = DALFactory.GetInstance(CacheKey);
-            return (IPfmReportRecordDAL)objType;
-        }
-    }
+		public static IPfmDictionaryDAL PfmDictionaryDALInstance()
+			=> CreateDALInstance<IPfmDictionaryDAL>("PfmDictionaryDAL");
+
+		public static IPfmErrorDAL PfmErrorDALInstance()
+			=> CreateDALInstance<IPfmErrorDAL>("PfmErrorDAL");
+
+		public static IPfmIaeCategoryDAL PfmIaeCategoryDALInstance()
+			=> CreateDALInstance<IPfmIaeCategoryDAL>("PfmIaeCategoryDAL");
+
+		public static IPfmIaeDetailedDAL PfmIaeDetailedDALInstance()
+			=> CreateDALInstance<IPfmIaeDetailedDAL>("PfmIaeDetailedDAL");
+
+		public static IPfmIaeItemsDAL PfmIaeItemsDALInstance()
+			=> CreateDALInstance<IPfmIaeItemsDAL>("PfmIaeItemsDAL");
+
+		public static IPfmLogsDAL PfmLogsDALInstance()
+			=> CreateDALInstance<IPfmLogsDAL>("PfmLogsDAL");
+
+		public static IPfmMemberDAL PfmMemberDALInstance()
+			=> CreateDALInstance<IPfmMemberDAL>("PfmMemberDAL");
+
+		public static IPfmReportDAL PfmReportDALInstance()
+			=> CreateDALInstance<IPfmReportDAL>("PfmReportDAL");
+
+		public static IPfmReportRecordDAL PfmReportRecordDALInstance()
+			=> CreateDALInstance<IPfmReportRecordDAL>("PfmReportRecordDAL");
+	}
 }
