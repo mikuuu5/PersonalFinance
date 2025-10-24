@@ -15,9 +15,7 @@ namespace PFM.DawnXZ.Library.Transit
         #endregion Constant & 常量
         #region Attribute & 属性
         #region Path & 路径
-        /// <summary>
-        /// 应用程序路径·WPF
-        /// </summary>
+        //应用程序路径·WPF
         public static string AppPath
         {
             get { return System.AppDomain.CurrentDomain.BaseDirectory; }
