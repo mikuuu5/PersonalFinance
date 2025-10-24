@@ -1,21 +1,15 @@
-﻿using DawnXZ.DawnUtility;
+using DawnXZ.DawnUtility;
 using PFM.DawnXZ.Library.Transit;
 using System;
 using System.Globalization;
 using System.Windows.Data;
-
 namespace PFM.DawnXZ.WPF.Codes {
-
     #region 字符串截断处理
-    /// <summary>
-    /// 字符串截断处理
-    /// </summary>
+    //字符串截断处理
     [ValueConversion(typeof(string), typeof(string))]
     public class StringTruncation : IValueConverter
     {
-        /// <summary>
-        /// 字符串截断处理
-        /// </summary>
+        //字符串截断处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -30,9 +24,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             strTemp = StringHelper.InterceptByTitle(strTemp, length, "…");
             return strTemp;
         }
-        /// <summary>
-        /// 字符串截断处理
-        /// </summary>
+        //字符串截断处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -44,17 +36,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 字符串截断处理
-
     #region 状态转换处理
-    /// <summary>
-    /// 状态转换处理
-    /// </summary>
+    //状态转换处理
     [ValueConversion(typeof(string), typeof(byte))]
     public class StateTruncation : IValueConverter
     {
-        /// <summary>
-        /// 状态转换处理
-        /// </summary>
+        //状态转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -77,9 +64,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             }
             return strTemp;
         }
-        /// <summary>
-        /// 状态转换处理
-        /// </summary>
+        //状态转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -91,17 +76,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 状态转换处理
-
     #region 账务字典类型转换处理
-    /// <summary>
-    /// 账务字典类型转换处理
-    /// </summary>
+    //账务字典类型转换处理
     [ValueConversion(typeof(string), typeof(byte))]
     public class TypeTruncation : IValueConverter
     {
-        /// <summary>
-        /// 账务字典类型转换处理
-        /// </summary>
+        //账务字典类型转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -125,9 +105,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             }
             return strTemp;
         }
-        /// <summary>
-        /// 账务字典类型转换处理
-        /// </summary>
+        //账务字典类型转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -139,17 +117,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 账务字典类型转换处理
-
     #region 账务字典标识转换处理
-    /// <summary>
-    /// 账务字典标识转换处理
-    /// </summary>
+    //账务字典标识转换处理
     [ValueConversion(typeof(string), typeof(byte))]
     public class DictMarkTruncation : IValueConverter
     {
-        /// <summary>
-        /// 账务字典标识转换处理
-        /// </summary>
+        //账务字典标识转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -204,9 +177,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             }
             return strTemp;
         }
-        /// <summary>
-        /// 账务字典标识转换处理
-        /// </summary>
+        //账务字典标识转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -220,15 +191,11 @@ namespace PFM.DawnXZ.WPF.Codes {
     #endregion 账务字典标识转换处理
 
     #region 账务成员名称获得
-    /// <summary>
-    /// 账务成员名称获得
-    /// </summary>
+    //账务成员名称获得
     [ValueConversion(typeof(string), typeof(int))]
     public class MemberNameTruncation : IValueConverter
     {
-        /// <summary>
-        /// 账务成员名称获得
-        /// </summary>
+        //账务成员名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -241,9 +208,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             if (mbrId <= 0) return "未知成员";
             return MemberTsit.GetName(mbrId);
         }
-        /// <summary>
-        /// 账务成员名称获得
-        /// </summary>
+        // 账务成员名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -255,17 +220,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 账务成员名称获得    
-
     #region 收支项目类型转换处理
-    /// <summary>
-    /// 收支项目类型转换处理
-    /// </summary>
+    //收支项目类型转换处理
     [ValueConversion(typeof(string), typeof(byte))]
     public class ItemsTypeTruncation : IValueConverter
     {
-        /// <summary>
-        /// 收支项目类型转换处理
-        /// </summary>
+        //收支项目类型转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -293,9 +253,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             }
             return strTmp;
         }
-        /// <summary>
-        /// 收支项目类型转换处理
-        /// </summary>
+        // 收支项目类型转换处理
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -307,17 +265,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 收支项目类型转换处理
-
     #region 账务账目名称获得
-    /// <summary>
-    /// 账务账目名称获得
-    /// </summary>
+    //账务账目名称获得
     [ValueConversion(typeof(string), typeof(int))]
     public class AccountNameTruncation : IValueConverter
     {
-        /// <summary>
-        /// 账务账目名称获得
-        /// </summary>
+        //账务账目名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -330,9 +283,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             if (accId <= 0) return "未知账目";
             return AccountTsit.GetName(accId);
         }
-        /// <summary>
-        /// 账务账目名称获得
-        /// </summary>
+        //账务账目名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -344,17 +295,12 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 账务账目名称获得
-    
     #region 收支类别名称获得
-    /// <summary>
-    /// 收支类别名称获得
-    /// </summary>
+    //收支类别名称获得
     [ValueConversion(typeof(string), typeof(int))]
     public class IaeCategoryNameTruncation : IValueConverter
     {
-        /// <summary>
-        /// 收支类别名称获得
-        /// </summary>
+        // 收支类别名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -367,9 +313,7 @@ namespace PFM.DawnXZ.WPF.Codes {
             if (catId <= 0) return "未知类别";
             return IaeCategoryTsit.GetName(catId);
         }
-        /// <summary>
-        /// 账务账目名称获得
-        /// </summary>
+        //账务账目名称获得
         /// <param name="value"></param>
         /// <param name="targetType"></param>
         /// <param name="parameter"></param>
@@ -381,5 +325,4 @@ namespace PFM.DawnXZ.WPF.Codes {
         }
     }
     #endregion 收支类别名称获得
-    
 }
