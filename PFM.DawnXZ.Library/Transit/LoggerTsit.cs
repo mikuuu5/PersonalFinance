@@ -1,117 +1,149 @@
-﻿using System;
+using System;
 using System.IO;
-
+using System.Threading;
 namespace PFM.DawnXZ.Library.Transit
 {
-    /// <summary>
-    /// 文件日志类
-    /// 默认：根目录logs文件夹
-    /// </summary>
+    //文件日志类
+    //默认：根目录logs文件夹
     public class LoggerTsit
     {
         #region Property
-        /// <summary>
-        /// 日志保存路径
-        /// </summary>
-        public static string LogPath
+        //日志保存路径
+        public static string LogPath { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        //日志级别
+        public static LogLevel Level { get; set; } = LogLevel.INFO;
+        #endregion
+        #region 日志级别枚举
+        public enum LogLevel
         {
-            get { return Path.Combine(Tools.AppPath, "logs"); }
+            DEBUG = 0,
+            INFO = 1,
+            WARN = 2,
+            ERROR = 3,
+            FATAL = 4
         }
-        #endregion Property
-
-        #region 构造函数
-        /// <summary>
-        /// 文件日志类
-        /// </summary>
-        public LoggerTsit()
-        { }
-        #endregion 构造函数
-
+        #endregion
         #region 成员方法
-
         #region 错误信息
-        /// <summary>
-        /// 记录错误日志
-        /// </summary>
+        //记录错误日志
         /// <param name="ex">Exception</param>
-        public static void Write(Exception ex)
+        public static void Error(Exception ex)
         {
-            Write(string.Format("发生错误：{0}\r\n错误描述：{1}", ex.Message, ex.StackTrace));
-            //Write(string.Format("Error Message: {0}", ex.Message));
-            //Write(string.Format("Error Description: {0}", ex.StackTrace));
+            if ((int)Level > (int)LogLevel.ERROR) return;
+            Write(LogLevel.ERROR, $"发生错误：{ex.Message}\r\n错误描述：{ex.StackTrace}");
         }
-        /// <summary>
-        /// 记录错误日志
-        /// </summary>
+        //记录错误日志
         /// <param name="logPath">日志路径</param>
         /// <param name="ex">Exception</param>
-        public static void Write(string logPath, Exception ex)
+        public static void Error(string logPath, Exception ex)
         {
-            Write(logPath, string.Format("发生错误：{0}\r\n错误描述：{1}", ex.Message, ex.StackTrace));
-            //Write(logPath, string.Format("Error Message: {0}", ex.Message));
-            //Write(logPath, string.Format("Error Description: {0}", ex.StackTrace));
+            if ((int)Level > (int)LogLevel.ERROR) return;
+            Write(logPath, LogLevel.ERROR, $"发生错误：{ex.Message}\r\n错误描述：{ex.StackTrace}");
         }
-        #endregion 错误信息
-
-        #region 记录日志
-        /// <summary>
-        /// 记录日志
-        /// </summary>
-        /// <param name="msg">内容</param>
-        public static void Write(string msg)
+        //记录错误日志
+        /// <param name="message">错误信息</param>
+        public static void Error(string message)
         {
-            if (!Directory.Exists(LogPath))
-            {
-                Directory.CreateDirectory(LogPath);
-            }
-            string fn = string.Format(@"{0}.log", DateTime.Now.ToString("yyyy-MM-dd"));
-            fn = Path.Combine(LogPath, fn);
-            if (!File.Exists(fn))
-            {
-                FileStream fs = File.Create(fn);
-                fs.Close();
-            }
-            WriteMsg(fn, string.Format(@"{0} 【{1}】", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), msg));
+            if ((int)Level > (int)LogLevel.ERROR) return;
+            Write(LogLevel.ERROR, message);
         }
-        /// <summary>
-        /// 记录日志
-        /// </summary>
+        #endregion
+        #region 信息日志
+        //记录信息日志
+        /// <param name="message">信息</param>
+        public static void Info(string message)
+        {
+            if ((int)Level > (int)LogLevel.INFO) return;
+            Write(LogLevel.INFO, message);
+        }
+        //记录信息日志
         /// <param name="logPath">日志路径</param>
-        /// <param name="msg">内容</param>
-        public static void Write(string logPath, string msg)
+        /// <param name="message">信息</param>
+        public static void Info(string logPath, string message)
         {
-            if (!Directory.Exists(logPath))
-            {
-                Directory.CreateDirectory(logPath);
-            }
-            string fn = string.Format(@"{0}.log", DateTime.Now.ToString("yyyy-MM-dd"));
-            fn = Path.Combine(logPath, fn);
-            if (!File.Exists(fn))
-            {
-                FileStream fs = File.Create(fn);
-                fs.Close();
-            }
-            WriteMsg(fn, string.Format(@"{0} 【{1}】", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), msg));
+            if ((int)Level > (int)LogLevel.INFO) return;
+            Write(logPath, LogLevel.INFO, message);
         }
-        #endregion 记录日志
-
-        /// <summary>
-        /// 写文件
-        /// </summary>
-        /// <param name="fileName">文件</param>
+        #endregion
+        #region 调试日志
+        //记录调试日志
+        /// <param name="message">调试信息</param>
+        public static void Debug(string message)
+        {
+            if ((int)Level > (int)LogLevel.DEBUG) return;
+            Write(LogLevel.DEBUG, message);
+        }
+        #endregion
+        #region 警告日志
+        //记录警告日志
+        /// <param name="message">警告信息</param>
+        public static void Warn(string message)
+        {
+            if ((int)Level > (int)LogLevel.WARN) return;
+            Write(LogLevel.WARN, message);
+        }
+        #endregion
+        #region 核心写入方法
+        //记录日志
+        /// <param name="level">日志级别</param>
         /// <param name="msg">内容</param>
-        private static void WriteMsg(string fileName, string msg)
+        private static void Write(LogLevel level, string msg)
+        {
+            Write(LogPath, level, msg);
+        }
+        //记录日志
+        /// <param name="logPath">日志路径</param>
+        /// <param name="level">日志级别</param>
+        /// <param name="msg">内容</param>
+        private static void Write(string logPath, LogLevel level, string msg)
         {
             try
             {
-                StreamWriter sw = File.AppendText(fileName);
-                sw.WriteLine(msg);
-                sw.Flush();
-                sw.Close();
-            }
-            catch { }
-        }
+                EnsureDirectoryExists(logPath);
 
-        #endregion 成员方法
+                string fileName = $"{DateTime.Now:yyyy-MM-dd}.log";
+                string fullPath = Path.Combine(logPath, fileName);
+
+                string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{level}] {msg}";
+
+                WriteToFile(fullPath, logEntry);
+            }
+            catch (Exception ex)
+            {
+                // 日志失败时的备用处理，可以输出到控制台或其他地方
+                System.Diagnostics.Debug.WriteLine($"日志写入失败: {ex.Message}");
+            }
+        }
+        //确保目录存在
+        private static void EnsureDirectoryExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+        //写文件
+        private static void WriteToFile(string fileName, string message)
+        {
+            // 使用线程安全的方式写入文件
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(fileName, true, System.Text.Encoding.UTF8))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+            catch (IOException)
+            {
+                // 如果文件被占用，稍后重试一次
+                Thread.Sleep(10);
+                using (StreamWriter sw = new StreamWriter(fileName, true, System.Text.Encoding.UTF8))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+        }
+        #endregion
+        #endregion
     }
 }
