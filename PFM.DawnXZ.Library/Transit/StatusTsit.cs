@@ -1,19 +1,13 @@
-﻿// =================================================================== 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 namespace PFM.DawnXZ.Library.Transit
 {
-    /// <summary>
-    /// 状态转换
-    /// </summary>
+    //状态转换
     public class StatusTsit
     {
-        /// <summary>
-        /// 将对应状态值转换为中文显示
-        /// </summary>
+        //将对应状态值转换为中文显示
         /// <param name="status">状态值</param>
         /// <returns></returns>
         public static string StatusConvert(byte status)
