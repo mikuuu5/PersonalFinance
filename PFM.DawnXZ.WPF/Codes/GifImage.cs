@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.IO;
 using System.Security;
@@ -8,24 +8,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Windows.Resources;
-
 namespace PFM.DawnXZ.WPF.Codes
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class GifImageExceptionRoutedEventArgs : RoutedEventArgs
     {
         public Exception ErrorException;
-
         public GifImageExceptionRoutedEventArgs(RoutedEvent routedEvent, object obj)
             : base(routedEvent, obj)
         {
         }
     }
-    /// <summary>
-    /// 
-    /// </summary>
     class WebReadState
     {
         public WebRequest webRequest;
@@ -33,31 +25,12 @@ namespace PFM.DawnXZ.WPF.Codes
         public Stream readStream;
         public byte[] buffer;
     }
-    /// <summary>
-    /// 
-    /// </summary>
     public class GifImage : System.Windows.Controls.UserControl
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private GifAnimation gifAnimation = null;
-        /// <summary>
-        /// 
-        /// </summary>
         private Image image = null;
-        /// <summary>
-        /// 
-        /// </summary>
-        public GifImage()
-        {  }
-        /// <summary>
-        /// 
-        /// </summary>
+        public GifImage(){}
         public static readonly DependencyProperty ForceGifAnimProperty = DependencyProperty.Register("ForceGifAnim", typeof(bool), typeof(GifImage), new FrameworkPropertyMetadata(false));
-        /// <summary>
-        /// 
-        /// </summary>
         public bool ForceGifAnim
         {
             get
@@ -69,13 +42,7 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.SetValue(ForceGifAnimProperty, value);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty SourceProperty = DependencyProperty.Register("Source", typeof(string), typeof(GifImage), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSourceChanged)));
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -84,9 +51,6 @@ namespace PFM.DawnXZ.WPF.Codes
             string s = (string)e.NewValue;
             obj.CreateFromSourceString(s);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public string Source
         {
             get
@@ -98,13 +62,7 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.SetValue(SourceProperty, value);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty StretchProperty = DependencyProperty.Register("Stretch", typeof(Stretch), typeof(GifImage), new FrameworkPropertyMetadata(Stretch.Fill, FrameworkPropertyMetadataOptions.AffectsMeasure, new PropertyChangedCallback(OnStretchChanged)));
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
         private static void OnStretchChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -120,9 +78,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 obj.image.Stretch = s;
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public Stretch Stretch
         {
             get
@@ -134,13 +89,7 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.SetValue(StretchProperty, value);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty StretchDirectionProperty = DependencyProperty.Register("StretchDirection", typeof(StretchDirection), typeof(GifImage), new FrameworkPropertyMetadata(StretchDirection.Both, FrameworkPropertyMetadataOptions.AffectsMeasure, new PropertyChangedCallback(OnStretchDirectionChanged)));
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="d"></param>
         /// <param name="e"></param>
         private static void OnStretchDirectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -156,9 +105,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 obj.image.StretchDirection = s;
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         public StretchDirection StretchDirection
         {
             get
@@ -170,19 +116,10 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.SetValue(StretchDirectionProperty, value);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
         public delegate void ExceptionRoutedEventHandler(object sender, GifImageExceptionRoutedEventArgs args);
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly RoutedEvent ImageFailedEvent = EventManager.RegisterRoutedEvent("ImageFailed", RoutingStrategy.Bubble, typeof(ExceptionRoutedEventHandler), typeof(GifImage));
-        /// <summary>
-        /// 
-        /// </summary>
         public event ExceptionRoutedEventHandler ImageFailed
         {
             add
@@ -194,18 +131,12 @@ namespace PFM.DawnXZ.WPF.Codes
                 RemoveHandler(ImageFailedEvent, value);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void image_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
             RaiseImageFailedEvent(e.ErrorException);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="exp"></param>
         void RaiseImageFailedEvent(Exception exp)
         {
@@ -213,9 +144,6 @@ namespace PFM.DawnXZ.WPF.Codes
             newArgs.ErrorException = exp;
             RaiseEvent(newArgs);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         private void DeletePreviousImage()
         {
             if (image != null)
@@ -229,9 +157,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 gifAnimation = null;
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         private void CreateNonGifAnimationImage()
         {
             image = new Image();
@@ -242,9 +167,6 @@ namespace PFM.DawnXZ.WPF.Codes
             image.StretchDirection = StretchDirection;
             this.AddChild(image);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="memoryStream"></param>
         private void CreateGifAnimation(MemoryStream memoryStream)
         {
@@ -254,15 +176,11 @@ namespace PFM.DawnXZ.WPF.Codes
             gifAnimation.StretchDirection = StretchDirection;
             this.AddChild(gifAnimation);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="source"></param>
         private void CreateFromSourceString(string source)
         {
             DeletePreviousImage();
             Uri uri;
-
             try
             {
                 uri = new Uri(source, UriKind.RelativeOrAbsolute);
@@ -272,7 +190,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 RaiseImageFailedEvent(exp);
                 return;
             }
-
             if (source.Trim().ToUpper().EndsWith(".GIF") || ForceGifAnim)
             {
                 if (!uri.IsAbsoluteUri)
@@ -303,35 +220,20 @@ namespace PFM.DawnXZ.WPF.Codes
                 CreateNonGifAnimationImage();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="memoryStream"></param>
         private delegate void WebRequestFinishedDelegate(MemoryStream memoryStream);
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="memoryStream"></param>
         private void WebRequestFinished(MemoryStream memoryStream)
         {
             CreateGifAnimation(memoryStream);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="exp"></param>
         private delegate void WebRequestErrorDelegate(Exception exp);
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="exp"></param>
         private void WebRequestError(Exception exp)
         {
             RaiseImageFailedEvent(exp);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="asyncResult"></param>
         private void WebResponseCallback(IAsyncResult asyncResult)
         {
@@ -349,9 +251,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.Dispatcher.Invoke(DispatcherPriority.Render, new WebRequestErrorDelegate(WebRequestError), exp);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="asyncResult"></param>
         private void WebReadCallback(IAsyncResult asyncResult)
         {
@@ -374,9 +273,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 this.Dispatcher.Invoke(DispatcherPriority.Render, new WebRequestFinishedDelegate(WebRequestFinished), webReadState.memoryStream);
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="uri"></param>
         private void GetGifStreamFromHttp(Uri uri)
         {
@@ -386,7 +282,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 webReadState.memoryStream = new MemoryStream();
                 webReadState.webRequest = WebRequest.Create(uri);
                 webReadState.webRequest.Timeout = 10000;
-
                 webReadState.webRequest.BeginGetResponse(new AsyncCallback(WebResponseCallback), webReadState);
             }
             catch (SecurityException)
@@ -394,9 +289,6 @@ namespace PFM.DawnXZ.WPF.Codes
                 CreateNonGifAnimationImage();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="s"></param>
         private void ReadGifStreamSynch(Stream s)
         {
@@ -412,9 +304,6 @@ namespace PFM.DawnXZ.WPF.Codes
             }
             CreateGifAnimation(memoryStream);
         }
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="uri"></param>
         private void GetGifStreamFromPack(Uri uri)
         {
