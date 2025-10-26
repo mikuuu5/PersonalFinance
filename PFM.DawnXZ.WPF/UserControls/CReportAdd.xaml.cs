@@ -1,4 +1,4 @@
-﻿using DawnXZ.DawnUtility;
+using DawnXZ.DawnUtility;
 using DawnXZ.VerifyUtility;
 using PFM.DawnXZ.Library.BLL;
 using PFM.DawnXZ.Library.Entity;
@@ -98,7 +98,7 @@ namespace PFM.DawnXZ.WPF.UserControls {
             if (this.cboxReriod.Items.Count > 0) this.cboxReriod.SelectedIndex = 0;
             this.cboxYear.IsEnabled = false;
             this.cboxReriod.IsEnabled = false;
-            this.txtName.Text = ConfigTsit.ReprotTitle;
+            this.txtName.Text = ConfigTsit.ReportTitle;
             this.txtMemo.Clear();
             this.InitDescType();
             this.InitDescReriod();
