@@ -143,6 +143,16 @@ namespace PFM.DawnXZ.Library.Transit
                 }
             }
         }
+
+        public static void Write(Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void Write(string v)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
         #endregion
     }
