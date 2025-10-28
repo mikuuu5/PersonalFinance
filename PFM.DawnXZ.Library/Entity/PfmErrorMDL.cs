@@ -1,23 +1,32 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace PFM.DawnXZ.Library.Entity
 {
     /// <summary>
-    /// 错误信息
+    /// 错误信息实体类
     /// </summary>
     [Serializable]
     public class PfmErrorMDL : EntityBase
     {
-
         #region 构造函数
-
         /// <summary>
         /// 构造函数
         /// </summary>
         public PfmErrorMDL()
         { }
+        #endregion
 
+        #region 私有字段
+        private long _errId;
+        private DateTime _errTime;
+        private string _errPage;
+        private string _errMessage;
+        private string _errTargetSite;
+        private string _errStackTrace;
+        private string _errSource;
+        private string _errIp;
+        private string _errName;
         #endregion
 
         #region 公共属性
@@ -25,149 +34,179 @@ namespace PFM.DawnXZ.Library.Entity
         /// <summary>
         /// 系统编号
         /// </summary>
-        private long _errId;
-        /// <summary>
-        /// 系统编号
-        /// </summary>
         public long ErrId
         {
-            get { return this._errId; }
+            get { return _errId; }
             set
             {
-                this._errId = value;
-                RaisePropertyChanged("ErrId");
+                if (_errId != value)
+                {
+                    _errId = value;
+                    RaisePropertyChanged("ErrId");
+                }
             }
         }
+
         /// <summary>
-        /// 页面名称
-        /// </summary>
-        private DateTime _errTime;
-        /// <summary>
-        /// 页面名称
+        /// 错误时间
         /// </summary>
         public DateTime ErrTime
         {
-            get { return this._errTime; }
+            get { return _errTime; }
             set
             {
-                this._errTime = value;
-                RaisePropertyChanged("ErrTime");
+                if (_errTime != value)
+                {
+                    _errTime = value;
+                    RaisePropertyChanged("ErrTime");
+                }
             }
         }
-        /// <summary>
-        /// 页面名称
-        /// </summary>
-        private string _errPage;
+
         /// <summary>
         /// 页面名称
         /// </summary>
         public string ErrPage
         {
-            get { return this._errPage; }
+            get { return _errPage; }
             set
             {
-                this._errPage = value;
-                RaisePropertyChanged("ErrPage");
+                if (_errPage != value)
+                {
+                    _errPage = value;
+                    RaisePropertyChanged("ErrPage");
+                }
             }
         }
-        /// <summary>
-        /// 错误信息
-        /// </summary>
-        private string _errMessage;
+
         /// <summary>
         /// 错误信息
         /// </summary>
         public string ErrMessage
         {
-            get { return this._errMessage; }
+            get { return _errMessage; }
             set
             {
-                this._errMessage = value;
-                RaisePropertyChanged("ErrMessage");
+                if (_errMessage != value)
+                {
+                    _errMessage = value;
+                    RaisePropertyChanged("ErrMessage");
+                }
             }
         }
-        /// <summary>
-        /// 错误目标
-        /// </summary>
-        private string _errTargetSite;
+
         /// <summary>
         /// 错误目标
         /// </summary>
         public string ErrTargetSite
         {
-            get { return this._errTargetSite; }
+            get { return _errTargetSite; }
             set
             {
-                this._errTargetSite = value;
-                RaisePropertyChanged("ErrTargetSite");
+                if (_errTargetSite != value)
+                {
+                    _errTargetSite = value;
+                    RaisePropertyChanged("ErrTargetSite");
+                }
             }
         }
+
         /// <summary>
-        /// 错误跟踪
-        /// </summary>
-        private string _errStackTrace;
-        /// <summary>
-        /// 错误跟踪
+        /// 错误堆栈跟踪
         /// </summary>
         public string ErrStackTrace
         {
-            get { return this._errStackTrace; }
+            get { return _errStackTrace; }
             set
             {
-                this._errStackTrace = value;
-                RaisePropertyChanged("ErrStackTrace");
+                if (_errStackTrace != value)
+                {
+                    _errStackTrace = value;
+                    RaisePropertyChanged("ErrStackTrace");
+                }
             }
         }
+
         /// <summary>
-        /// 错误数据
-        /// </summary>
-        private string _errSource;
-        /// <summary>
-        /// 错误数据
+        /// 错误源
         /// </summary>
         public string ErrSource
         {
-            get { return this._errSource; }
+            get { return _errSource; }
             set
             {
-                this._errSource = value;
-                RaisePropertyChanged("ErrSource");
+                if (_errSource != value)
+                {
+                    _errSource = value;
+                    RaisePropertyChanged("ErrSource");
+                }
             }
         }
-        /// <summary>
-        /// 用户IP
-        /// </summary>
-        private string _errIp;
+
         /// <summary>
         /// 用户IP
         /// </summary>
         public string ErrIp
         {
-            get { return this._errIp; }
+            get { return _errIp; }
             set
             {
-                this._errIp = value;
-                RaisePropertyChanged("ErrIp");
+                if (_errIp != value)
+                {
+                    _errIp = value;
+                    RaisePropertyChanged("ErrIp");
+                }
             }
         }
-        /// <summary>
-        /// 操作用户
-        /// </summary>
-        private string _errName;
+
         /// <summary>
         /// 操作用户
         /// </summary>
         public string ErrName
         {
-            get { return this._errName; }
+            get { return _errName; }
             set
             {
-                this._errName = value;
-                RaisePropertyChanged("ErrName");
+                if (_errName != value)
+                {
+                    _errName = value;
+                    RaisePropertyChanged("ErrName");
+                }
             }
         }
 
         #endregion
 
+        #region 重写方法
+        /// <summary>
+        /// 重写ToString方法
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("错误ID:{0} 时间:{1} 页面:{2}",
+                _errId, _errTime.ToString("yyyy-MM-dd HH:mm:ss"), _errPage);
+        }
+        #endregion
+
+        #region 便捷方法
+        /// <summary>
+        /// 获取简化的错误信息
+        /// </summary>
+        public string GetSimpleErrorMessage()
+        {
+            if (string.IsNullOrEmpty(_errMessage))
+                return "无错误信息";
+
+            return _errMessage.Length > 100 ? _errMessage.Substring(0, 100) + "..." : _errMessage;
+        }
+
+        /// <summary>
+        /// 是否包含堆栈跟踪信息
+        /// </summary>
+        public bool HasStackTrace
+        {
+            get { return !string.IsNullOrEmpty(_errStackTrace); }
+        }
+        #endregion
     }
 }
