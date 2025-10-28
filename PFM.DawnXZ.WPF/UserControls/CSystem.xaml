@@ -19,14 +19,13 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="《个人账务管理系统》" Grid.Row="0" Style="{StaticResource tbAboutTitle}" />
-        <TextBlock Text="1、本系统编写初衷为方便个人理财使用，希望能帮助到您；" Grid.Row="1" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="2、本系统开发环境为：VS2010、WPF、SQLite；" Grid.Row="2" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="3、你可以任意传播本系统，但请勿进行反汇编等操作；" Grid.Row="3" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="4、无偿提供源码，如需请联系本人；" Grid.Row="4" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="5、欢迎提供意见与建议，特别是使用过程中想不到的问题；" Grid.Row="5" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="6、欢迎提供UI界面素材，特别是功能模块的按钮，谢谢；" Grid.Row="6" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="7、弘扬传统文化，发扬中华文化，编程是一门艺术；" Grid.Row="7" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="8、电子邮箱：roach888@gmail.com ；" Grid.Row="8" Style="{StaticResource tbAbout}" />
-        <TextBlock Text="9、请记住，你永远是最棒的！！！" Grid.Row="9" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="账户与权限" Grid.Row="1" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="数据安全" Grid.Row="2" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="界面样式" Grid.Row="3" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="震动反馈" Grid.Row="4" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="屏幕亮度、分辨率" Grid.Row="5" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="存储设置" Grid.Row="6" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="网络配置" Grid.Row="7" Style="{StaticResource tbAbout}" />
+        <TextBlock Text="恢复出厂设置" Grid.Row="8" Style="{StaticResource tbAbout}" />
     </Grid>
 </UserControl>
