@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,7 +47,7 @@ namespace PFM.DawnXZ.Library.BLL
         {
             if (pfmLogs == null)
                 return 0;
-            return PfmLogsBLL._dal.Insert(pfmLogs);
+            return _dal.Insert(pfmLogs);
         }
 
         #endregion
@@ -63,7 +63,7 @@ namespace PFM.DawnXZ.Library.BLL
         {
             if (logId < 0)
                 return 0;
-            return PfmLogsBLL._dal.Delete(logId);
+            return _dal.Delete(logId);
         }
         /// <summary>
         /// 删除数据表PfmLogs中的所有记录
@@ -71,7 +71,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static int DeleteAll()
         {
-            return PfmLogsBLL._dal.DeleteAll();
+            return _dal.DeleteAll();
         }
 
         #endregion
@@ -85,7 +85,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>PfmLogs实体对象</returns>
         public static PfmLogsMDL Select(DataRow row)
         {
-            return PfmLogsBLL._dal.Select(row);
+            return _dal.Select(row);
         }
         /// <summary>
         /// 通过DataReader创建一个PfmLogs实体对象
@@ -94,7 +94,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>PfmLogs实体对象</returns>
         public static PfmLogsMDL Select(IDataReader dr)
         {
-            return PfmLogsBLL._dal.Select(dr);
+            return _dal.Select(dr);
         }
         /// <summary>
         /// 根据ID,返回一个PfmLogs实体对象
@@ -103,7 +103,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>PfmLogs实体对象</returns>
         public static PfmLogsMDL Select(long logId)
         {
-            return PfmLogsBLL._dal.Select(logId);
+            return _dal.Select(logId);
         }
 
         #endregion
@@ -117,7 +117,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static List<PfmLogsMDL> LSelect()
         {
-            return PfmLogsBLL._dal.LSelect();
+            return _dal.LSelect();
         }
         /// <summary>
         /// 得到数据表PfmLogs所有记录
@@ -126,7 +126,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static List<PfmLogsMDL> LSelect(string sortField)
         {
-            return PfmLogsBLL._dal.LSelect(sortField);
+            return _dal.LSelect(sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件的记录
@@ -136,7 +136,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static List<PfmLogsMDL> LSelect(string where, string sortField)
         {
-            return PfmLogsBLL._dal.LSelect(where, sortField);
+            return _dal.LSelect(where, sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件记录
@@ -147,7 +147,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static List<PfmLogsMDL> LSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmLogsBLL._dal.LSelect(commandType, sqlCommand, param);
+            return _dal.LSelect(commandType, sqlCommand, param);
         }
         #endregion List
 
@@ -158,7 +158,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static IList<PfmLogsMDL> ISelect()
         {
-            return PfmLogsBLL._dal.ISelect();
+            return _dal.ISelect();
         }
         /// <summary>
         /// 得到数据表PfmLogs所有记录
@@ -167,7 +167,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static IList<PfmLogsMDL> ISelect(string sortField)
         {
-            return PfmLogsBLL._dal.ISelect(sortField);
+            return _dal.ISelect(sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件的记录
@@ -177,7 +177,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static IList<PfmLogsMDL> ISelect(string where, string sortField)
         {
-            return PfmLogsBLL._dal.ISelect(where, sortField);
+            return _dal.ISelect(where, sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件记录
@@ -188,7 +188,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static IList<PfmLogsMDL> ISelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmLogsBLL._dal.ISelect(commandType, sqlCommand, param);
+            return _dal.ISelect(commandType, sqlCommand, param);
         }
         #endregion IList
 
@@ -199,7 +199,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static Collection<PfmLogsMDL> CSelect()
         {
-            return PfmLogsBLL._dal.CSelect();
+            return _dal.CSelect();
         }
         /// <summary>
         /// 得到数据表PfmLogs所有记录
@@ -208,7 +208,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static Collection<PfmLogsMDL> CSelect(string sortField)
         {
-            return PfmLogsBLL._dal.CSelect(sortField);
+            return _dal.CSelect(sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件的记录
@@ -218,7 +218,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static Collection<PfmLogsMDL> CSelect(string where, string sortField)
         {
-            return PfmLogsBLL._dal.CSelect(where, sortField);
+            return _dal.CSelect(where, sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件记录
@@ -229,7 +229,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static Collection<PfmLogsMDL> CSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmLogsBLL._dal.CSelect(commandType, sqlCommand, param);
+            return _dal.CSelect(commandType, sqlCommand, param);
         }
         #endregion Collection
 
@@ -240,7 +240,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static ObservableCollection<PfmLogsMDL> OSelect()
         {
-            return PfmLogsBLL._dal.OSelect();
+            return _dal.OSelect();
         }
         /// <summary>
         /// 得到数据表PfmLogs所有记录
@@ -249,7 +249,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static ObservableCollection<PfmLogsMDL> OSelect(string sortField)
         {
-            return PfmLogsBLL._dal.OSelect(sortField);
+            return _dal.OSelect(sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件的记录
@@ -259,7 +259,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static ObservableCollection<PfmLogsMDL> OSelect(string where, string sortField)
         {
-            return PfmLogsBLL._dal.OSelect(where, sortField);
+            return _dal.OSelect(where, sortField);
         }
         /// <summary>
         /// 得到数据表PfmLogs满足查询条件记录
@@ -270,7 +270,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>结果集</returns>
         public static ObservableCollection<PfmLogsMDL> OSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmLogsBLL._dal.OSelect(commandType, sqlCommand, param);
+            return _dal.OSelect(commandType, sqlCommand, param);
         }
         #endregion ObservableCollection
 
@@ -281,7 +281,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <param name="recordCount">记录数</param>
         public static void Select(string where, out int recordCount)
         {
-            PfmLogsBLL._dal.Select(where, out recordCount);
+            _dal.Select(where, out recordCount);
         }
         /// <summary>
         /// 根据主键检测是否存在该条记录
@@ -290,7 +290,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>存在/不存在</returns>
         public static bool Exists(long logId)
         {
-            return PfmLogsBLL._dal.Exists(logId);
+            return _dal.Exists(logId);
         }
         /// <summary>
         /// 根据指定条件检测是否存在该条记录
@@ -299,7 +299,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns>存在/不存在</returns>
         public bool Exists(string where)
         {
-            return PfmLogsBLL._dal.Exists(where);
+            return _dal.Exists(where);
         }
 
         #endregion
@@ -318,7 +318,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static List<PfmLogsMDL> LSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.LSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -330,7 +330,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static List<PfmLogsMDL> LSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.LSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -343,7 +343,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static List<PfmLogsMDL> LSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.LSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -357,7 +357,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static List<PfmLogsMDL> LSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.LSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         #endregion List
 
@@ -371,7 +371,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static IList<PfmLogsMDL> ISelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.ISelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -383,7 +383,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static IList<PfmLogsMDL> ISelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.ISelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -396,7 +396,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static IList<PfmLogsMDL> ISelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.ISelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -410,7 +410,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static IList<PfmLogsMDL> ISelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.ISelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         #endregion IList
 
@@ -424,7 +424,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static Collection<PfmLogsMDL> CSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.CSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -436,7 +436,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static Collection<PfmLogsMDL> CSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.CSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -449,7 +449,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static Collection<PfmLogsMDL> CSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.CSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -463,7 +463,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static Collection<PfmLogsMDL> CSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.CSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         #endregion Collection
 
@@ -477,7 +477,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static ObservableCollection<PfmLogsMDL> OSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.OSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -489,7 +489,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static ObservableCollection<PfmLogsMDL> OSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.OSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -502,7 +502,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static ObservableCollection<PfmLogsMDL> OSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.OSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         /// <summary>
         /// 数据分页处理·SQLite
@@ -516,7 +516,7 @@ namespace PFM.DawnXZ.Library.BLL
         /// <returns></returns>
         public static ObservableCollection<PfmLogsMDL> OSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmLogsBLL._dal.OSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
         #endregion ObservableCollection
 
