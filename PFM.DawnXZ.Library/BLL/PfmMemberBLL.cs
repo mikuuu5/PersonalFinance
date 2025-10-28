@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,278 +14,184 @@ namespace PFM.DawnXZ.Library.BLL
     /// </summary>
     public class PfmMemberBLL
     {
-
         #region ---------变量定义-----------
 
-        ///<summary>
-        ///得到数据工厂
-        ///</summary>
-        private static readonly IPfmMemberDAL _dal = DALFactory.PfmMemberDALInstance();
-
-        #endregion
-
-        #region ----------构造函数----------
-
         /// <summary>
-        /// 构造函数
+        /// 数据访问层实例
         /// </summary>
-        public PfmMemberBLL()
-        { }
+        private static readonly IPfmMemberDAL _dal = DALFactory.PfmMemberDALInstance();
 
         #endregion
 
         #region ---------函数定义-----------
 
-        #region 添加
+        #region 基本CRUD操作
 
         /// <summary>
         /// 向数据表PfmMember中插入一条新记录
         /// </summary>
         /// <param name="pfmMember">PfmMember实体对象</param>
-        /// <returns></returns>
+        /// <returns>影响的行数</returns>
         public static int Insert(PfmMemberMDL pfmMember)
         {
-            if (pfmMember == null)
-                return 0;
-            return PfmMemberBLL._dal.Insert(pfmMember);
+            return pfmMember == null ? 0 : _dal.Insert(pfmMember);
         }
-
-        #endregion
-
-        #region 修改
 
         /// <summary>
         /// 向数据表PfmMember修改一条记录
         /// </summary>
         /// <param name="pfmMember">PfmMember实体对象</param>
-        /// <returns></returns>
+        /// <returns>影响的行数</returns>
         public static int Update(PfmMemberMDL pfmMember)
         {
-            if (pfmMember == null)
-                return 0;
-            return PfmMemberBLL._dal.Update(pfmMember);
+            return pfmMember == null ? 0 : _dal.Update(pfmMember);
         }
-
-        #endregion
-
-        #region 删除
 
         /// <summary>
         /// 删除数据表PfmMember中的一条记录
         /// </summary>
-        /// <param name="mbrId"></param>
-        /// <returns></returns>
+        /// <param name="mbrId">会员ID</param>
+        /// <returns>影响的行数</returns>
         public static int Delete(long mbrId)
         {
-            if (mbrId < 0)
-                return 0;
-            return PfmMemberBLL._dal.Delete(mbrId);
+            return mbrId < 0 ? 0 : _dal.Delete(mbrId);
         }
+
         /// <summary>
         /// 删除数据表PfmMember中的一条记录
         /// </summary>
         /// <param name="pfmMember">PfmMember实体对象</param>
-        /// <returns></returns>
+        /// <returns>影响的行数</returns>
         public static int Delete(PfmMemberMDL pfmMember)
         {
-            return PfmMemberBLL._dal.Delete(pfmMember);
+            return _dal.Delete(pfmMember);
         }
 
         #endregion
 
-        #region 数据实体
+        #region 数据实体操作
 
         /// <summary>
         /// 通过DataRow创建一个PfmMember实体对象
         /// </summary>
-        /// <param name="row">row</param>
+        /// <param name="row">DataRow</param>
         /// <returns>PfmMember实体对象</returns>
         public static PfmMemberMDL Select(DataRow row)
         {
-            return PfmMemberBLL._dal.Select(row);
+            return _dal.Select(row);
         }
+
         /// <summary>
         /// 通过DataReader创建一个PfmMember实体对象
         /// </summary>
-        /// <param name="dr">dr</param>
+        /// <param name="dr">IDataReader</param>
         /// <returns>PfmMember实体对象</returns>
         public static PfmMemberMDL Select(IDataReader dr)
         {
-            return PfmMemberBLL._dal.Select(dr);
+            return _dal.Select(dr);
         }
+
         /// <summary>
-        /// 根据ID,返回一个PfmMember实体对象
+        /// 根据ID返回一个PfmMember实体对象
         /// </summary>
-        /// <param name="mbrId"></param>
+        /// <param name="mbrId">会员ID</param>
         /// <returns>PfmMember实体对象</returns>
         public static PfmMemberMDL Select(long mbrId)
         {
-            return PfmMemberBLL._dal.Select(mbrId);
+            return _dal.Select(mbrId);
         }
 
         #endregion
 
-        #region 查询
+        #region 查询操作
 
-        #region List
-        /// <summary>
-        /// 得到数据表PfmMember所有记录
-        /// </summary>
-        /// <returns>结果集</returns>
+        #region List查询
         public static List<PfmMemberMDL> LSelect()
         {
-            return PfmMemberBLL._dal.LSelect();
-        }/// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <returns>结果集</returns>
+            return _dal.LSelect();
+        }
+
         public static List<PfmMemberMDL> LSelect(string where)
         {
-            return PfmMemberBLL._dal.LSelect(where);
+            return _dal.LSelect(where);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <param name="sortField">排序字段</param>
-        /// <returns>结果集</returns>
+
         public static List<PfmMemberMDL> LSelect(string where, string sortField)
         {
-            return PfmMemberBLL._dal.LSelect(where, sortField);
+            return _dal.LSelect(where, sortField);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件记录
-        /// </summary>
-        /// <param name="commandType">命令类型</param>
-        /// <param name="sqlCommand">SQL命令</param>
-        /// <param name="param">命令参数数组</param>
-        /// <returns>结果集</returns>
+
         public static List<PfmMemberMDL> LSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmMemberBLL._dal.LSelect(commandType, sqlCommand, param);
+            return _dal.LSelect(commandType, sqlCommand, param);
         }
-        #endregion List
+        #endregion
 
-        #region IList
-        /// <summary>
-        /// 得到数据表PfmMember所有记录
-        /// </summary>
-        /// <returns>结果集</returns>
+        #region IList查询
         public static IList<PfmMemberMDL> ISelect()
         {
-            return PfmMemberBLL._dal.ISelect();
-        }/// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <returns>结果集</returns>
+            return _dal.ISelect();
+        }
+
         public static IList<PfmMemberMDL> ISelect(string where)
         {
-            return PfmMemberBLL._dal.ISelect(where);
+            return _dal.ISelect(where);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <param name="sortField">排序字段</param>
-        /// <returns>结果集</returns>
+
         public static IList<PfmMemberMDL> ISelect(string where, string sortField)
         {
-            return PfmMemberBLL._dal.ISelect(where, sortField);
+            return _dal.ISelect(where, sortField);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件记录
-        /// </summary>
-        /// <param name="commandType">命令类型</param>
-        /// <param name="sqlCommand">SQL命令</param>
-        /// <param name="param">命令参数数组</param>
-        /// <returns>结果集</returns>
+
         public static IList<PfmMemberMDL> ISelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmMemberBLL._dal.ISelect(commandType, sqlCommand, param);
+            return _dal.ISelect(commandType, sqlCommand, param);
         }
-        #endregion IList
+        #endregion
 
-        #region Collection
-        /// <summary>
-        /// 得到数据表PfmMember所有记录
-        /// </summary>
-        /// <returns>结果集</returns>
+        #region Collection查询
         public static Collection<PfmMemberMDL> CSelect()
         {
-            return PfmMemberBLL._dal.CSelect();
-        }/// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <returns>结果集</returns>
+            return _dal.CSelect();
+        }
+
         public static Collection<PfmMemberMDL> CSelect(string where)
         {
-            return PfmMemberBLL._dal.CSelect(where);
+            return _dal.CSelect(where);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <param name="sortField">排序字段</param>
-        /// <returns>结果集</returns>
+
         public static Collection<PfmMemberMDL> CSelect(string where, string sortField)
         {
-            return PfmMemberBLL._dal.CSelect(where, sortField);
+            return _dal.CSelect(where, sortField);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件记录
-        /// </summary>
-        /// <param name="commandType">命令类型</param>
-        /// <param name="sqlCommand">SQL命令</param>
-        /// <param name="param">命令参数数组</param>
-        /// <returns>结果集</returns>
+
         public static Collection<PfmMemberMDL> CSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmMemberBLL._dal.CSelect(commandType, sqlCommand, param);
+            return _dal.CSelect(commandType, sqlCommand, param);
         }
-        #endregion Collection
+        #endregion
 
-        #region ObservableCollection
-        /// <summary>
-        /// 得到数据表PfmMember所有记录
-        /// </summary>
-        /// <returns>结果集</returns>
+        #region ObservableCollection查询
         public static ObservableCollection<PfmMemberMDL> OSelect()
         {
-            return PfmMemberBLL._dal.OSelect();
-        }/// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <returns>结果集</returns>
+            return _dal.OSelect();
+        }
+
         public static ObservableCollection<PfmMemberMDL> OSelect(string where)
         {
-            return PfmMemberBLL._dal.OSelect(where);
+            return _dal.OSelect(where);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件的记录
-        /// </summary>
-        /// <param name="where">查询条件</param>
-        /// <param name="sortField">排序字段</param>
-        /// <returns>结果集</returns>
+
         public static ObservableCollection<PfmMemberMDL> OSelect(string where, string sortField)
         {
-            return PfmMemberBLL._dal.OSelect(where, sortField);
+            return _dal.OSelect(where, sortField);
         }
-        /// <summary>
-        /// 得到数据表PfmMember满足查询条件记录
-        /// </summary>
-        /// <param name="commandType">命令类型</param>
-        /// <param name="sqlCommand">SQL命令</param>
-        /// <param name="param">命令参数数组</param>
-        /// <returns>结果集</returns>
+
         public static ObservableCollection<PfmMemberMDL> OSelect(CommandType commandType, string sqlCommand, params SQLiteParameter[] param)
         {
-            return PfmMemberBLL._dal.OSelect(commandType, sqlCommand, param);
+            return _dal.OSelect(commandType, sqlCommand, param);
         }
-        #endregion ObservableCollection
+        #endregion
 
         /// <summary>
         /// 得到数据表PfmMember满足查询条件的记录数
@@ -294,246 +200,123 @@ namespace PFM.DawnXZ.Library.BLL
         /// <param name="recordCount">记录数</param>
         public static void Select(string where, out int recordCount)
         {
-            PfmMemberBLL._dal.Select(where, out recordCount);
+            _dal.Select(where, out recordCount);
         }
+
         /// <summary>
         /// 根据主键检测是否存在该条记录
         /// </summary>
-        /// <param name="mbrId"></param>
+        /// <param name="mbrId">会员ID</param>
         /// <returns>存在/不存在</returns>
         public static bool Exists(long mbrId)
         {
-            return PfmMemberBLL._dal.Exists(mbrId);
+            return _dal.Exists(mbrId);
         }
+
         /// <summary>
         /// 根据指定条件检测是否存在该条记录
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns>存在/不存在</returns>
-        public bool Exists(string where)
+        public static bool Exists(string where)
         {
-            return PfmMemberBLL._dal.Exists(where);
+            return _dal.Exists(where);
         }
-
-        #endregion
 
         #endregion
 
         #region 数据分页处理·SQLite
 
-        #region List
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+        #region List分页
         public static List<PfmMemberMDL> LSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.LSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static List<PfmMemberMDL> LSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.LSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static List<PfmMemberMDL> LSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.LSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strColumns">查询字段</param>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static List<PfmMemberMDL> LSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.LSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.LSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        #endregion List
+        #endregion
 
-        #region IList
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+        #region IList分页
         public static IList<PfmMemberMDL> ISelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.ISelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static IList<PfmMemberMDL> ISelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.ISelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static IList<PfmMemberMDL> ISelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.ISelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strColumns">查询字段</param>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static IList<PfmMemberMDL> ISelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.ISelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.ISelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        #endregion IList
+        #endregion
 
-        #region Collection
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+        #region Collection分页
         public static Collection<PfmMemberMDL> CSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.CSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static Collection<PfmMemberMDL> CSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.CSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static Collection<PfmMemberMDL> CSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.CSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strColumns">查询字段</param>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static Collection<PfmMemberMDL> CSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.CSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.CSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        #endregion Collection
+        #endregion
 
-        #region ObservableCollection
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+        #region ObservableCollection分页
         public static ObservableCollection<PfmMemberMDL> OSelectPaging(int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.OSelectPaging(pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static ObservableCollection<PfmMemberMDL> OSelectPaging(string strWhere, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.OSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strWhere, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static ObservableCollection<PfmMemberMDL> OSelectPaging(string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.OSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        /// <summary>
-        /// 数据分页处理·SQLite
-        /// </summary>
-        /// <param name="strColumns">查询字段</param>
-        /// <param name="strWhere">查询条件</param>
-        /// <param name="strOrder">排序字段</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="currentIndex">当前页码</param>
-        /// <param name="recordCount">总记录数</param>
-        /// <returns></returns>
+
         public static ObservableCollection<PfmMemberMDL> OSelectPaging(string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordCount)
         {
-            return PfmMemberBLL._dal.OSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
+            return _dal.OSelectPaging(strColumns, strWhere, strOrder, pageSize, currentIndex, out recordCount);
         }
-        #endregion ObservableCollection
+        #endregion
 
-        #endregion 数据分页处理·SQLite
+        #endregion
 
+        #endregion
     }
 }
