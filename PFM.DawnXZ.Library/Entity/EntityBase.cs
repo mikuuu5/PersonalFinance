@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,118 +6,111 @@ using System.Diagnostics;
 namespace PFM.DawnXZ.Library.Entity
 {
     /// <summary>
-    /// IDataErrorInfo, INotifyPropertyChanged
+    /// 实体基类，实现IDataErrorInfo和INotifyPropertyChanged接口
     /// </summary>
     public abstract class EntityBase : IDataErrorInfo, INotifyPropertyChanged
     {
         #region 属性变化事件
         /// <summary>
-        /// PropertyChangedEventHandler
+        /// 属性变化事件
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
-        /// RaisePropertyChanged
+        /// 触发属性变化通知
         /// </summary>
+        /// <param name="propertyName">属性名称</param>
         protected void RaisePropertyChanged(string propertyName)
         {
-            this.VerifyPropertyName(propertyName);
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
+            VerifyPropertyName(propertyName);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        #endregion 属性变化事件
+        #endregion
 
-        #region 属性验证事件
+        #region 属性验证
         /// <summary>
-        /// ThrowOnInvalidPropertyName
+        /// 是否在属性名无效时抛出异常（调试用）
         /// </summary>
         protected virtual bool ThrowOnInvalidPropertyName { get; private set; }
+
         /// <summary>
-        /// VerifyPropertyName
-        /// <param name="propertyName">属性名称</param>
+        /// 验证属性名称是否存在
         /// </summary>
+        /// <param name="propertyName">属性名称</param>
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)
         {
-            // If you raise PropertyChanged and do not specify a property name,
-            // all properties on the object are considered to be changed by the binding system.
-            if (String.IsNullOrEmpty(propertyName)) return;
-            // Verify that the property name matches a real,  
-            // public, instance property on this object.
+            if (string.IsNullOrEmpty(propertyName)) return;
+
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
-                string msg = "Invalid property name: " + propertyName;
-                if (this.ThrowOnInvalidPropertyName)
-                {
+                string msg = $"无效的属性名: {propertyName}";
+                if (ThrowOnInvalidPropertyName)
                     throw new ArgumentException(msg);
-                }
                 else
-                {
                     Debug.Fail(msg);
-                }
             }
         }
-        #endregion 属性验证事件
+        #endregion
 
-        #region 错误处理事件
+        #region 错误处理
         /// <summary>
-        /// Dictionary<string, string>
+        /// 错误信息字典
         /// </summary>
-        public Dictionary<string, string> Errors = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
 
-        #region IDataErrorInfo Members
         /// <summary>
-        /// IDataErrorInfo Members
+        /// 索引器 - 实现IDataErrorInfo接口
         /// </summary>
         public string this[string columnName]
         {
             get
             {
-                if (Errors.ContainsKey(columnName))
-                {
-                    return Errors[columnName];
-                }
-                else
-                {
-                    return string.Empty;
-                }
+                _errors.TryGetValue(columnName, out string error);
+                return error ?? string.Empty;
             }
         }
-        #endregion IDataErrorInfo Members
 
         /// <summary>
-        /// SetError
+        /// 设置错误信息
+        /// </summary>
         /// <param name="propertyName">属性名称</param>
         /// <param name="errorMessage">错误消息</param>
-        /// </summary>
         public void SetError(string propertyName, string errorMessage)
         {
-            Errors[propertyName] = errorMessage;
+            if (string.IsNullOrEmpty(propertyName)) return;
+
+            _errors[propertyName] = errorMessage;
             RaisePropertyChanged(propertyName);
         }
+
         /// <summary>
-        /// ClearError
-        /// <param name="propertyName">属性名称</param>
+        /// 清除错误信息
         /// </summary>
+        /// <param name="propertyName">属性名称</param>
         public void ClearError(string propertyName)
         {
-            Errors.Remove(propertyName);
-            RaisePropertyChanged(propertyName);
+            if (string.IsNullOrEmpty(propertyName)) return;
+
+            if (_errors.Remove(propertyName))
+            {
+                RaisePropertyChanged(propertyName);
+            }
         }
-        #endregion 错误处理事件
+
+        /// <summary>
+        /// 获取所有错误信息
+        /// </summary>
+        public IReadOnlyDictionary<string, string> Errors =>
+            new Dictionary<string, string>(_errors);
+        #endregion
 
         #region 公共属性
         /// <summary>
-        /// Error
+        /// 错误信息 - 实现IDataErrorInfo接口
         /// </summary>
-        public string Error
-        {
-            get { return null; }
-        }
-        #endregion 公共属性
+        public string Error => null;
+        #endregion
     }
 }
