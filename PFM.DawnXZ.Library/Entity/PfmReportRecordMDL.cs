@@ -1,253 +1,167 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace PFM.DawnXZ.Library.Entity
 {
-	/// <summary>
-	/// 报表记录
-	/// </summary>
-	[Serializable]
-	public class PfmReportRecordMDL : EntityBase
-	{
-		
-		#region 构造函数
-		
-		/// <summary>
-		/// 构造函数
-		/// </summary>
-		public PfmReportRecordMDL()
-		{ }
-		
-		#endregion
+    /// <summary>
+    /// 报表记录
+    /// </summary>
+    [Serializable]
+    public class PfmReportRecordMDL : EntityBase
+    {
+        #region 构造函数
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public PfmReportRecordMDL()
+        { }
+        #endregion
+
+        #region 私有字段
+        private long _rrdId;
+        private int _rptId;
+        private int _mbrId;
+        private int _accId;
+        private DateTime _rrdAddTime;
+        private decimal _rrdInSum;
+        private int _rrdInCount;
+        private decimal _rrdOutSum;
+        private int _rrdOutCount;
+        private decimal _rrdSum;
+        private int _rrdBkFd01;
+        private byte _rrdBkFd02;
+        private string _rrdBkFd03;
+        private string _rrdBkFd04;
+        #endregion
 
         #region 公共属性
 
         /// <summary>
         /// 系统编号
         /// </summary>
-        private long _rrdId;
-        /// <summary>
-        /// 系统编号
-        /// </summary>
         public long RrdId
         {
-            get { return this._rrdId; }
-            set
-            {
-                this._rrdId = value;
-                RaisePropertyChanged("RrdId");
-            }
+            get { return _rrdId; }
+            set { _rrdId = value; RaisePropertyChanged("RrdId"); }
         }
-        /// <summary>
-        /// 报表编号
-        /// </summary>
-        private int _rptId;
+
         /// <summary>
         /// 报表编号
         /// </summary>
         public int RptId
         {
-            get { return this._rptId; }
-            set
-            {
-                this._rptId = value;
-                RaisePropertyChanged("RptId");
-            }
+            get { return _rptId; }
+            set { _rptId = value; RaisePropertyChanged("RptId"); }
         }
-        /// <summary>
-        /// 成员编号
-        /// </summary>
-        private int _mbrId;
+
         /// <summary>
         /// 成员编号
         /// </summary>
         public int MbrId
         {
-            get { return this._mbrId; }
-            set
-            {
-                this._mbrId = value;
-                RaisePropertyChanged("MbrId");
-            }
+            get { return _mbrId; }
+            set { _mbrId = value; RaisePropertyChanged("MbrId"); }
         }
+
         /// <summary>
-        /// 成员编号
-        /// </summary>
-        private int _accId;
-        /// <summary>
-        /// 成员编号
+        /// 账户编号
         /// </summary>
         public int AccId
         {
-            get { return this._accId; }
-            set
-            {
-                this._accId = value;
-                RaisePropertyChanged("AccId");
-            }
+            get { return _accId; }
+            set { _accId = value; RaisePropertyChanged("AccId"); }
         }
-        /// <summary>
-        /// 添加时间
-        /// </summary>
-        private DateTime _rrdAddTime;
+
         /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime RrdAddTime
         {
-            get { return this._rrdAddTime; }
-            set
-            {
-                this._rrdAddTime = value;
-                RaisePropertyChanged("RrdAddTime");
-            }
+            get { return _rrdAddTime; }
+            set { _rrdAddTime = value; RaisePropertyChanged("RrdAddTime"); }
         }
-        /// <summary>
-        /// 收入总额
-        /// </summary>
-        private decimal _rrdInSum;
+
         /// <summary>
         /// 收入总额
         /// </summary>
         public decimal RrdInSum
         {
-            get { return this._rrdInSum; }
-            set
-            {
-                this._rrdInSum = value;
-                RaisePropertyChanged("RrdInSum");
-            }
+            get { return _rrdInSum; }
+            set { _rrdInSum = value; RaisePropertyChanged("RrdInSum"); }
         }
-        /// <summary>
-        /// 收入次数
-        /// </summary>
-        private int _rrdInCount;
+
         /// <summary>
         /// 收入次数
         /// </summary>
         public int RrdInCount
         {
-            get { return this._rrdInCount; }
-            set
-            {
-                this._rrdInCount = value;
-                RaisePropertyChanged("RrdInCount");
-            }
+            get { return _rrdInCount; }
+            set { _rrdInCount = value; RaisePropertyChanged("RrdInCount"); }
         }
-        /// <summary>
-        /// 支出总额
-        /// </summary>
-        private decimal _rrdOutSum;
+
         /// <summary>
         /// 支出总额
         /// </summary>
         public decimal RrdOutSum
         {
-            get { return this._rrdOutSum; }
-            set
-            {
-                this._rrdOutSum = value;
-                RaisePropertyChanged("RrdOutSum");
-            }
+            get { return _rrdOutSum; }
+            set { _rrdOutSum = value; RaisePropertyChanged("RrdOutSum"); }
         }
-        /// <summary>
-        /// 支出次数
-        /// </summary>
-        private int _rrdOutCount;
+
         /// <summary>
         /// 支出次数
         /// </summary>
         public int RrdOutCount
         {
-            get { return this._rrdOutCount; }
-            set
-            {
-                this._rrdOutCount = value;
-                RaisePropertyChanged("RrdOutCount");
-            }
+            get { return _rrdOutCount; }
+            set { _rrdOutCount = value; RaisePropertyChanged("RrdOutCount"); }
         }
-        /// <summary>
-        /// 收支总额
-        /// </summary>
-        private decimal _rrdSum;
+
         /// <summary>
         /// 收支总额
         /// </summary>
         public decimal RrdSum
         {
-            get { return this._rrdSum; }
-            set
-            {
-                this._rrdSum = value;
-                RaisePropertyChanged("RrdSum");
-            }
+            get { return _rrdSum; }
+            set { _rrdSum = value; RaisePropertyChanged("RrdSum"); }
         }
-        /// <summary>
-        /// 保留字段01
-        /// </summary>
-        private int _rrdBkFd01;
+
         /// <summary>
         /// 保留字段01
         /// </summary>
         public int RrdBkFd01
         {
-            get { return this._rrdBkFd01; }
-            set
-            {
-                this._rrdBkFd01 = value;
-                RaisePropertyChanged("RrdBkFd01");
-            }
+            get { return _rrdBkFd01; }
+            set { _rrdBkFd01 = value; RaisePropertyChanged("RrdBkFd01"); }
         }
-        /// <summary>
-        /// 保留字段02
-        /// </summary>
-        private byte _rrdBkFd02;
+
         /// <summary>
         /// 保留字段02
         /// </summary>
         public byte RrdBkFd02
         {
-            get { return this._rrdBkFd02; }
-            set
-            {
-                this._rrdBkFd02 = value;
-                RaisePropertyChanged("RrdBkFd02");
-            }
+            get { return _rrdBkFd02; }
+            set { _rrdBkFd02 = value; RaisePropertyChanged("RrdBkFd02"); }
         }
-        /// <summary>
-        /// 保留字段03
-        /// </summary>
-        private string _rrdBkFd03;
+
         /// <summary>
         /// 保留字段03
         /// </summary>
         public string RrdBkFd03
         {
-            get { return this._rrdBkFd03; }
-            set
-            {
-                this._rrdBkFd03 = value;
-                RaisePropertyChanged("RrdBkFd03");
-            }
+            get { return _rrdBkFd03; }
+            set { _rrdBkFd03 = value; RaisePropertyChanged("RrdBkFd03"); }
         }
-        /// <summary>
-        /// 保留字段04
-        /// </summary>
-        private string _rrdBkFd04;
+
         /// <summary>
         /// 保留字段04
         /// </summary>
         public string RrdBkFd04
         {
-            get { return this._rrdBkFd04; }
-            set
-            {
-                this._rrdBkFd04 = value;
-                RaisePropertyChanged("RrdBkFd04");
-            }
+            get { return _rrdBkFd04; }
+            set { _rrdBkFd04 = value; RaisePropertyChanged("RrdBkFd04"); }
         }
 
         #endregion
-		
-	}
+    }
 }
