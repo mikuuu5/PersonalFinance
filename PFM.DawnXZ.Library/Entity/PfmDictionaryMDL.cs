@@ -1,23 +1,30 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace PFM.DawnXZ.Library.Entity
 {
     /// <summary>
-    /// 账务字典
+    /// 账务字典实体类
     /// </summary>
     [Serializable]
     public class PfmDictionaryMDL : EntityBase
     {
-
         #region 构造函数
-
         /// <summary>
         /// 构造函数
         /// </summary>
         public PfmDictionaryMDL()
         { }
+        #endregion
 
+        #region 私有字段
+        private long _dictId;
+        private DateTime _dictTime;
+        private byte _dictState;
+        private byte _dictType;
+        private string _dictName;
+        private byte _dictMark;
+        private string _dictMemo;
         #endregion
 
         #region 公共属性
@@ -25,117 +32,125 @@ namespace PFM.DawnXZ.Library.Entity
         /// <summary>
         /// 系统编号
         /// </summary>
-        private long _dictId;
-        /// <summary>
-        /// 系统编号
-        /// </summary>
         public long DictId
         {
-            get { return this._dictId; }
+            get { return _dictId; }
             set
             {
-                this._dictId = value;
-                RaisePropertyChanged("DictId");
+                if (_dictId != value)
+                {
+                    _dictId = value;
+                    RaisePropertyChanged("DictId");
+                }
             }
         }
-        /// <summary>
-        /// 添加时间
-        /// </summary>
-        private DateTime _dictTime;
+
         /// <summary>
         /// 添加时间
         /// </summary>
         public DateTime DictTime
         {
-            get { return this._dictTime; }
+            get { return _dictTime; }
             set
             {
-                this._dictTime = value;
-                RaisePropertyChanged("DictTime");
+                if (_dictTime != value)
+                {
+                    _dictTime = value;
+                    RaisePropertyChanged("DictTime");
+                }
             }
         }
-        /// <summary>
-        /// 字典状态
-        /// </summary>
-        private byte _dictState;
+
         /// <summary>
         /// 字典状态
         /// </summary>
         public byte DictState
         {
-            get { return this._dictState; }
+            get { return _dictState; }
             set
             {
-                this._dictState = value;
-                RaisePropertyChanged("DictState");
+                if (_dictState != value)
+                {
+                    _dictState = value;
+                    RaisePropertyChanged("DictState");
+                }
             }
         }
-        /// <summary>
-        /// 字典类型
-        /// </summary>
-        private byte _dictType;
+
         /// <summary>
         /// 字典类型
         /// </summary>
         public byte DictType
         {
-            get { return this._dictType; }
+            get { return _dictType; }
             set
             {
-                this._dictType = value;
-                RaisePropertyChanged("DictType");
+                if (_dictType != value)
+                {
+                    _dictType = value;
+                    RaisePropertyChanged("DictType");
+                }
             }
         }
-        /// <summary>
-        /// 字典名称
-        /// </summary>
-        private string _dictName;
+
         /// <summary>
         /// 字典名称
         /// </summary>
         public string DictName
         {
-            get { return this._dictName; }
+            get { return _dictName; }
             set
             {
-                this._dictName = value;
-                RaisePropertyChanged("DictName");
+                if (_dictName != value)
+                {
+                    _dictName = value;
+                    RaisePropertyChanged("DictName");
+                }
             }
         }
-        /// <summary>
-        /// 字典标识
-        /// </summary>
-        private byte _dictMark;
+
         /// <summary>
         /// 字典标识
         /// </summary>
         public byte DictMark
         {
-            get { return this._dictMark; }
+            get { return _dictMark; }
             set
             {
-                this._dictMark = value;
-                RaisePropertyChanged("DictMark");
+                if (_dictMark != value)
+                {
+                    _dictMark = value;
+                    RaisePropertyChanged("DictMark");
+                }
             }
         }
-        /// <summary>
-        /// 字典备注
-        /// </summary>
-        private string _dictMemo;
+
         /// <summary>
         /// 字典备注
         /// </summary>
         public string DictMemo
         {
-            get { return this._dictMemo; }
+            get { return _dictMemo; }
             set
             {
-                this._dictMemo = value;
-                RaisePropertyChanged("DictMemo");
+                if (_dictMemo != value)
+                {
+                    _dictMemo = value;
+                    RaisePropertyChanged("DictMemo");
+                }
             }
         }
 
         #endregion
 
+        #region 重写方法
+        /// <summary>
+        /// 重写ToString方法
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("{0} (类型:{1})", DictName, DictType);
+        }
+        #endregion
     }
 }
